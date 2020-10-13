@@ -1,6 +1,7 @@
 /*------------------------------------*\
 #FONTS
 \*------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;700&display=swap');
 
 /*------------------------------------*\
 #Variables
@@ -8,10 +9,27 @@
 
 :root {
     /* colors */
+    --color-light: #CCE7FF;
+    --color-dark: #0F3557;
+
+    --color-front: var(--color-dark);
+    --color-back : var(--color-light);
 
     /* opacity */
 
     /* transitions */
+}
+
+.is-night{
+    --color-front: var(--color-light);
+    --color-back: var(--color-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+        --color-front: var(--color-light);
+        --color-back: var(--color-dark);
+    }
 }
 
 /*------------------------------------*\
@@ -31,6 +49,18 @@ html {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-back);
+    color: var(--color-front);
+    font-family: 'Work Sans', sans-serif;
+    padding: 2em;
+    
+    -webkit-font-feature-settings: "zero";
+	-moz-font-feature-settings: "zero=1";
+	-moz-font-feature-settings: "zero";
+	-ms-font-feature-settings: "zero";
+	-o-font-feature-settings: "zero";
+	font-feature-settings: "zero";
+	font-variant: slashed-zero;
 }
 
 *,
@@ -46,15 +76,9 @@ html {
 * Customize the background color to match your design.
 */
 
-::-moz-selection {
-    background: red;
-    color: white;
-    text-shadow: none;
-}
-
 ::selection {
-    background: red;
-    color: white;
+    background: var(--color-front);
+    color: var(--color-back);
     text-shadow: none;
 }
 
@@ -82,7 +106,7 @@ img {
 h1,
 h2,
 h3 {
-    font-weight: 700;
+    font-weight: 400;
 }
 
 h1 {
@@ -154,8 +178,8 @@ figcaption {
 hr {
     border: 0;
     height: 1px;
-    background: LightGrey;
-    margin: 0 0 24px;
+    background: var(--color-front);
+    margin: 0 0 .5em;
 }
 
 a {
@@ -242,6 +266,27 @@ input::placeholder {
 #COMPONENTS
 \*------------------------------------*/
 
+.c-app{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    max-width: 25em;
+    margin-left: auto;
+    margin-right: auto;
+    height: calc(100vh - 4em);
+}
+
+.c-app__summary{
+    font-size: 1.75em;
+    line-height: 2.5rem;
+}
+
+.c-app__location{
+    font-size: 1em;
+    line-height: 1em;
+}
+
 /*
     Component: Logo
     ---
@@ -249,7 +294,20 @@ input::placeholder {
 */
 
 .c-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    line-height: 1em;
+}
 
+.c-logo_text{
+    margin-left: .5em;
+}
+
+.c-logo_icon svg{
+    height: 22px;
+    width: 22px;
+    fill: var(--color-front);
 }
 
 /*
@@ -278,6 +336,58 @@ input::placeholder {
     Horizon with sun visualisation
 */
 
+.c-horizon{
+    margin-bottom: 34px;
+}
+
+.c-horizon__time-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.c-horizon__time{
+    font-size: .75em;
+    line-height: .875em;
+}
+
+.c-horizon__sky-wrapper {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    padding-top: 22px;
+    padding-right: 40px;
+}
+
+.c-horizon__sky {
+    position: relative;
+    height: 100%;
+}
+.c-horizon__sun::before{
+    display: block;
+    text-align: center;
+    content: attr(data-time);
+    margin-bottom: .5em;
+}
+
+.c-horizon__sun {
+    font-size: .75em;
+    line-height: .875em;
+    
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+
+    transform: translateY(22px);
+}
+
+.c-horizon__sun svg{
+    width: 1.375em;
+    fill: var(--color-front);
+}
+
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
@@ -286,6 +396,10 @@ input::placeholder {
     Utilities: Mute
     Mute with opacity
 */
+
+.u-muted{
+    opacity: .6;
+}
 
 /*------------------------------------*\
 #STATES
